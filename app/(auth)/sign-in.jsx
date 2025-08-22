@@ -80,7 +80,6 @@ const SignInScreen = () => {
         toastRef.current?.show(res?.message || "Login failed please try again");
       }
     } catch (error) {
-      console.log(error);
       toastRef.current.show(
         error?.response?.data?.message ||
           error?.message ||

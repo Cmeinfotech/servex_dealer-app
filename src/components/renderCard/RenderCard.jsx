@@ -7,11 +7,36 @@ import DynamicText from "../ui/DynamicText";
 import Shimmer from "../ui/Shimmer";
 
 const RenderCard = ({ item, index, onPress, loading = false }) => {
+  let statusColor;
+
+  switch (item?.status?.toLowerCase()) {
+    case "booked":
+      statusColor = "#FF8C00";
+      break;
+    case "accepted":
+      statusColor = "#50C878";
+      break;
+    case "pending":
+      statusColor = "#6082B6";
+      break;
+    case "inprogress":
+      statusColor = "#007FFF";
+      break;
+    case "completed":
+      statusColor = "#50C878";
+      break;
+    case "rejected":
+      statusColor = "#FF0800";
+      break;
+    default:
+      statusColor = "#000";
+      break;
+  }
   return (
     <View style={styles.itemContainer} key={`${item?.title}-${index}`}>
       <View style={styles.timeContainer}>
         {loading ? (
-          <Shimmer height={12} width={40} />
+          <Shimmer height={12} width={40} borderRadius={3} />
         ) : (
           <DynamicText weight="bold" size={scale(12)}>
             {dateFormat(item?.scheduledDate)}
@@ -26,7 +51,7 @@ const RenderCard = ({ item, index, onPress, loading = false }) => {
         )}
       </View>
       {loading ? (
-        <Shimmer height={hp(12)} width={wp(75)} />
+        <Shimmer height={hp(12)} width={wp(80)} />
       ) : (
         <TouchableOpacity
           activeOpacity={0.6}
@@ -36,6 +61,14 @@ const RenderCard = ({ item, index, onPress, loading = false }) => {
           ]}
           onPress={() => onPress(item)}
         >
+          <View
+            style={[
+              styles.statusDot,
+              {
+                backgroundColor: statusColor,
+              },
+            ]}
+          />
           <View style={styles.cardHeader}>
             <DynamicText size={scale(14)} weight="bold">
               {item?.Category?.categoryName || "N/A"}
@@ -88,6 +121,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.primary,
     borderWidth: 1,
     borderRadius: scale(10),
+    position: "relative",
   },
   cardHeader: {
     flexDirection: "row",
@@ -115,6 +149,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#555",
     marginLeft: 4,
+  },
+  statusDot: {
+    width: scale(8),
+    height: scale(8),
+    borderRadius: 20,
+    position: "absolute",
+    top: scale(8),
+    right: scale(8),
   },
 });
 

@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
-import { useCallback, useContext, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IMAGES } from "../../assets/Images";

@@ -28,7 +28,7 @@ const DynamicText = ({
           fontSize: scale(size),
           color,
           textAlign: center ? "center" : "auto",
-        },
+           },
         style,
       ]}
     >

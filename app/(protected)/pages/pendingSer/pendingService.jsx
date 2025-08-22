@@ -29,9 +29,14 @@ const PendingService = () => {
         const filtered = res.data
           ?.filter((i) => {
             const status = i?.status?.toLowerCase();
-            return status === "pending" || status === "accepted" || status === "inprogress" || status === "booked" ;
+            return (
+              status === "pending" ||
+              status === "accepted" ||
+              status === "inprogress" ||
+              status === "booked"
+            );
           })
-          ?.reverse();
+          // ?.reverse();
         setData(filtered);
       } else {
         setData([]);
@@ -66,25 +71,54 @@ const PendingService = () => {
     [loading, handleDetails]
   );
 
-  const renderHeader = useCallback(() => (
-    <View>
-      <View style={styles.headerImageContainer}>
-        <Image
-          source={IMAGES.pendingServiceIcon}
-          style={styles.headerImage}
-          contentFit="contain"
-        />
+  // const getStatusColor = (status) => {
+  //   switch (status?.toLowerCase()) {
+  //     case "booked":
+  //       return "#FF8C00";
+
+  //     case "accepted":
+  //       return "#50C878";
+
+  //     case "pending":
+  //       return "#6082B6";
+
+  //     case "inprogress":
+  //       return "#007FFF";
+
+  //     case "completed":
+  //       return "#50C878";
+
+  //     default:
+  //       return "#000";
+  //   }
+  // };
+
+  const renderHeader = useCallback(
+    () => (
+      <View>
+        <View style={styles.headerImageContainer}>
+          <Image
+            source={IMAGES.pendingServiceIcon}
+            style={styles.headerImage}
+            contentFit="contain"
+          />
+        </View>
+        <View style={styles.filterView}>
+          <DynamicText
+            size={scale(12)}
+            color={COLORS.grey}
+            style={styles.timeContainer}
+          >
+            Time
+          </DynamicText>
+          <DynamicText size={scale(12)} color={COLORS.grey}>
+            Work
+          </DynamicText>
+        </View>
       </View>
-      <View style={styles.filterView}>
-        <DynamicText size={scale(12)} color={COLORS.grey} style={styles.timeContainer}>
-          Time
-        </DynamicText>
-        <DynamicText size={scale(12)} color={COLORS.grey}>
-          Work
-        </DynamicText>
-      </View>
-    </View>
-  ), []);
+    ),
+    []
+  );
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);

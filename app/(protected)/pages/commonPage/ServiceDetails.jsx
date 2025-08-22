@@ -36,7 +36,30 @@ const ServiceDetails = () => {
   const [parsedData, setParsedData] = useState(
     params?.data ? JSON.parse(params?.data) : {}
   );
-  
+
+  let statusColor;
+
+  switch (parsedData?.status?.toLowerCase()) {
+    case "booked":
+      statusColor = "#FF8C00";
+      break;
+    case "accepted":
+      statusColor = "#50C878";
+      break;
+    case "pending":
+      statusColor = "#6082B6";
+      break;
+    case "inprogress":
+      statusColor = "#007FFF";
+      break;
+    case "completed":
+      statusColor = "#50C878";
+      break;
+    default:
+      statusColor = "#000";
+      break;
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightPrimary }}>
       <View style={styles.container}>
@@ -128,6 +151,36 @@ const ServiceDetails = () => {
                   {parsedData?.customerAddress}
                 </DynamicText>
               </View>
+
+              <Border height={0.8} />
+
+              <View style={styles.statusView}>
+                <DynamicText size={scale(12)}>Status:</DynamicText>
+
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  {/* <View
+                    style={[
+                      styles.statusDot,
+                      {
+                        backgroundColor: statusColor,
+                      },
+                    ]}
+                  /> */}
+                  <DynamicText
+                    weight="bold"
+                    size={scale(13)}
+                    color={statusColor}
+                  >
+                    {parsedData?.status || "Status not updated yet"}
+                  </DynamicText>
+                </View>
+              </View>
             </View>
           </View>
 
@@ -195,5 +248,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: scale(5),
     marginVertical: scale(5),
+  },
+  statusView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  statusDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 20,
   },
 });

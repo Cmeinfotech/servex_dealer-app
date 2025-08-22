@@ -48,7 +48,6 @@ const SignUp = () => {
   const getCategoryData = async () => {
     try {
       const response = await APIS.categoryList();
-      // console.log(response);
       if (response?.status === true) {
         setCategoryData(response.data || []);
       } else {
@@ -112,7 +111,6 @@ const SignUp = () => {
       };
 
       const res = await APIS.SignUp(data);
-      console.log(res);
       if (res?.status === true) {
         router.replace("/sign-in");
         toastRef.current?.show(res?.message || "Registered user successfully");

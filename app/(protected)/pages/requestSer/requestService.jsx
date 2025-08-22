@@ -59,7 +59,6 @@ const RequestService = () => {
   const getCategoryData = async () => {
     try {
       const response = await APIS.categoryList();
-      console.log(response);
       if (response?.status === true) {
         setCategoryData(response.data || []);
       } else {
@@ -195,7 +194,7 @@ const RequestService = () => {
     }
     setIsLoading(true);
     Keyboard.dismiss();
-    
+
     try {
       const data = {
         customerName,
